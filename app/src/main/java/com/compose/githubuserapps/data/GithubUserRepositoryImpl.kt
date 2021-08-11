@@ -18,4 +18,32 @@ class GithubUserRepositoryImpl @Inject constructor(
             emit(result)
         }
     }
+
+    override suspend fun getGithubFollowers(userName: String): Flow<List<GithubUser>> {
+        return flow {  }
+    }
+
+    override suspend fun getGithubFollowing(userName: String): Flow<List<GithubUser>> {
+        return flow {
+            val result = githubUserService.getGithubUserFollowing(userName = userName)?.map {
+                GithubUser(
+                    userName = it.login ?: "-",
+                    userAvatar = it.avatarUrl ?: "-"
+                )
+            }.orEmpty()
+            emit(result)
+        }
+    }
+
+    override suspend fun getGithubUserDetails(userName: String): Flow<GithubUser> {
+        return flow {
+            val result = githubUserService.getGithubUserDetails(userName = userName).run {
+                GithubUser(
+                    userName = userName,
+                    userAvatar = avatarUrl ?: "-"
+                )
+            }
+            emit(result)
+        }
+    }
 }

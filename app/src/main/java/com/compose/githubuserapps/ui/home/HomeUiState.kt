@@ -1,4 +1,4 @@
-package com.compose.githubuserapps
+package com.compose.githubuserapps.ui.home
 
 import com.compose.githubuserapps.data.GithubUser
 

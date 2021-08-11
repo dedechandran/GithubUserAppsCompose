@@ -1,4 +1,4 @@
-package com.compose.githubuserapps
+package com.compose.githubuserapps.ui.home
 
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf

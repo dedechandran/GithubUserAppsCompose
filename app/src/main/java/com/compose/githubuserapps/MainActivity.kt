@@ -25,15 +25,35 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import com.compose.githubuserapps.ui.details.DetailsScreen
+import com.compose.githubuserapps.ui.home.HomeScreen
 import com.compose.githubuserapps.ui.theme.GithubUserAppsTheme
+import com.google.accompanist.pager.ExperimentalPagerApi
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity() {
+class MainActivity : ComponentActivity() {
 
+    @ExperimentalPagerApi
+    @ExperimentalMaterialApi
     @ExperimentalComposeUiApi
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContent {
+            val navHostController = rememberNavController()
+            GithubUserAppsTheme {
+                NavHost(navController = navHostController, startDestination = "home" ){
+                    composable("home"){
+                        HomeScreen(navController = navHostController)
+                    }
+                    composable("details/{userName}"){ backStackEntry ->
+                        DetailsScreen(navController = navHostController, userName = backStackEntry.arguments?.getString("userName") ?: "")
+                    }
+                }
+            }
+        }
     }
 }

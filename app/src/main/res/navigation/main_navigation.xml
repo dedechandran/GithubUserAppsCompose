@@ -6,6 +6,6 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.compose.githubuserapps.HomeFragment"
+        android:name="com.compose.githubuserapps.ui.home.HomeFragment"
         android:label="HomeFragment" />
 </navigation>
